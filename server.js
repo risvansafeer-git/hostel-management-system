@@ -72,3 +72,24 @@ app.get("/rooms", (req, res) => {
     });
 
 });
+
+app.post("/allocate", (req, res) => {
+
+    const { student_id, room_id } = req.body;
+
+    const sql =
+        "INSERT INTO room_allocations(student_id, room_id) VALUES (?, ?)";
+
+    db.query(sql, [student_id, room_id], (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Room allocated successfully"
+        });
+
+    });
+
+});
