@@ -209,3 +209,35 @@ app.get("/notices", (req, res) => {
         });
 
 });
+app.get("/dashboard", (req, res) => {
+
+    const data = {};
+
+    db.query(
+        "SELECT COUNT(*) AS totalStudents FROM students",
+        (err, students) => {
+
+            data.students = students[0].totalStudents;
+
+            db.query(
+                "SELECT COUNT(*) AS totalRooms FROM rooms",
+                (err, rooms) => {
+
+                    data.rooms = rooms[0].totalRooms;
+
+                    db.query(
+                        "SELECT COUNT(*) AS pendingComplaints FROM complaints WHERE status='Pending'",
+                        (err, complaints) => {
+
+                            data.pendingComplaints =
+                                complaints[0].pendingComplaints;
+
+                            res.json(data);
+
+                        });
+
+                });
+
+        });
+
+});
