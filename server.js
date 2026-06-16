@@ -93,3 +93,38 @@ app.post("/allocate", (req, res) => {
     });
 
 });
+app.post("/complaints", (req, res) => {
+
+    const { student_id, description } = req.body;
+
+    const sql =
+        "INSERT INTO complaints(student_id, description) VALUES (?, ?)";
+
+    db.query(sql, [student_id, description], (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Complaint submitted"
+        });
+
+    });
+
+});
+
+app.get("/complaints", (req, res) => {
+
+    db.query("SELECT * FROM complaints",
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json(result);
+
+        });
+
+});
