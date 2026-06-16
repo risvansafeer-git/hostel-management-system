@@ -128,3 +128,47 @@ app.get("/complaints", (req, res) => {
         });
 
 });
+app.post("/leave", (req, res) => {
+
+    const {
+        student_id,
+        from_date,
+        to_date,
+        reason
+    } = req.body;
+
+    const sql =
+        "INSERT INTO leave_requests(student_id, from_date, to_date, reason) VALUES (?, ?, ?, ?)";
+
+    db.query(
+        sql,
+        [student_id, from_date, to_date, reason],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Leave request submitted"
+            });
+
+        });
+
+});
+
+app.get("/leave", (req, res) => {
+
+    db.query(
+        "SELECT * FROM leave_requests",
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json(result);
+
+        });
+
+});
