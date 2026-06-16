@@ -172,3 +172,40 @@ app.get("/leave", (req, res) => {
         });
 
 });
+
+app.post("/notices", (req, res) => {
+
+    const { title, description } = req.body;
+
+    db.query(
+        "INSERT INTO notices(title, description) VALUES (?, ?)",
+        [title, description],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Notice created"
+            });
+
+        });
+
+});
+
+app.get("/notices", (req, res) => {
+
+    db.query(
+        "SELECT * FROM notices",
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json(result);
+
+        });
+
+});
