@@ -11,17 +11,17 @@ async function loadDashboard() {
     document.getElementById(
         "students"
     ).innerText =
-        data.totalStudents;
+        data.students;
 
     document.getElementById(
         "rooms"
     ).innerText =
-        data.totalRooms;
+        data.rooms;
 
     document.getElementById(
         "allocations"
     ).innerText =
-        data.totalAllocations;
+        data.allocations;
 
     document.getElementById(
         "complaints"
@@ -31,7 +31,7 @@ async function loadDashboard() {
     document.getElementById(
         "leaves"
     ).innerText =
-        data.totalLeaves;
+        data.leaves;
 
 }
 

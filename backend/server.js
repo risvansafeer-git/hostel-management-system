@@ -269,3 +269,36 @@ app.get("/dashboard", (req, res) => {
         });
 
 });
+app.post("/login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    const sql =
+        "SELECT * FROM admins WHERE username=? AND password=?";
+
+    db.query(
+        sql,
+        [username, password],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            if (result.length > 0) {
+
+                res.json({
+                    success: true
+                });
+
+            } else {
+
+                res.json({
+                    success: false
+                });
+
+            }
+
+        });
+
+});
