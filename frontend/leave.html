@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leave Requests</title>
+</head>
+<body>
+
+<h1>Leave Request</h1>
+
+<label>Student</label>
+<select id="studentSelect"></select>
+
+<br><br>
+
+<label>From Date</label>
+<input type="date" id="from_date">
+
+<br><br>
+
+<label>To Date</label>
+<input type="date" id="to_date">
+
+<br><br>
+
+<textarea
+    id="reason"
+    placeholder="Reason">
+</textarea>
+
+<br><br>
+
+<button onclick="submitLeave()">
+    Submit Leave
+</button>
+
+<h2>Leave Requests</h2>
+
+<ul id="leaveList"></ul>
+
+<script src="leave.js"></script>
+
+</body>
+</html>
