@@ -217,22 +217,50 @@ app.get("/dashboard", (req, res) => {
         "SELECT COUNT(*) AS totalStudents FROM students",
         (err, students) => {
 
+            if (err) return res.status(500).json(err);
+
             data.students = students[0].totalStudents;
 
             db.query(
                 "SELECT COUNT(*) AS totalRooms FROM rooms",
                 (err, rooms) => {
 
+                    if (err) return res.status(500).json(err);
+
                     data.rooms = rooms[0].totalRooms;
 
                     db.query(
-                        "SELECT COUNT(*) AS pendingComplaints FROM complaints WHERE status='Pending'",
-                        (err, complaints) => {
+                        "SELECT COUNT(*) AS totalAllocations FROM room_allocations",
+                        (err, allocations) => {
 
-                            data.pendingComplaints =
-                                complaints[0].pendingComplaints;
+                            if (err) return res.status(500).json(err);
 
-                            res.json(data);
+                            data.allocations =
+                                allocations[0].totalAllocations;
+
+                            db.query(
+                                "SELECT COUNT(*) AS pendingComplaints FROM complaints WHERE status='Pending'",
+                                (err, complaints) => {
+
+                                    if (err) return res.status(500).json(err);
+
+                                    data.pendingComplaints =
+                                        complaints[0].pendingComplaints;
+
+                                    db.query(
+                                        "SELECT COUNT(*) AS totalLeaves FROM leave_requests",
+                                        (err, leaves) => {
+
+                                            if (err) return res.status(500).json(err);
+
+                                            data.leaves =
+                                                leaves[0].totalLeaves;
+
+                                            res.json(data);
+
+                                        });
+
+                                });
 
                         });
 
