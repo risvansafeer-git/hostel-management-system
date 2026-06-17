@@ -302,3 +302,27 @@ app.post("/login", (req, res) => {
         });
 
 });
+app.put("/complaints/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const sql =
+        "UPDATE complaints SET status='Resolved' WHERE id=?";
+
+    db.query(
+        sql,
+        [id],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:
+                    "Complaint resolved"
+            });
+
+        });
+
+});
