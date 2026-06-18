@@ -85,11 +85,16 @@ async function loadComplaints() {
             <li>
                 Complaint ID:
                 ${complaint.id}
-                |
+                <br>
+                ${complaint.description}
+                <br>
                 Status:
                 ${complaint.status}
                 <br>
-                ${complaint.description}
+                <button onclick="resolveComplaint(${complaint.id})">
+                    Resolve
+                </button>
+                <br><br>
             </li>
         `;
 
@@ -99,3 +104,15 @@ async function loadComplaints() {
 
 loadStudents();
 loadComplaints();
+async function resolveComplaint(id) {
+
+    await fetch(
+        `http://localhost:3000/complaints/${id}`,
+        {
+            method: "PUT"
+        }
+    );
+
+    loadComplaints();
+
+}

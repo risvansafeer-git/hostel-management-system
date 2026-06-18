@@ -39,16 +39,41 @@ async function loadStudents() {
 
     students.forEach(student => {
 
-        list.innerHTML += `
-            <li>
-                ${student.name}
-                -
-                ${student.department}
-            </li>
-        `;
+    list.innerHTML += `
+        <li>
 
-    });
+            ${student.name}
 
+            -
+
+            ${student.department}
+
+            <button
+                onclick="
+                deleteStudent(
+                ${student.id}
+                )">
+
+                Delete
+
+            </button>
+
+        </li>
+    `;
+
+});
 }
 
 loadStudents();
+async function deleteStudent(id) {
+
+    await fetch(
+        `http://localhost:3000/students/${id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    loadStudents();
+
+}
