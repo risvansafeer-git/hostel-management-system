@@ -380,3 +380,23 @@ app.put("/students/:id", (req, res) => {
         });
 
 });
+app.delete("/rooms/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    db.query(
+        "DELETE FROM rooms WHERE id=?",
+        [id],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Room deleted"
+            });
+
+        });
+
+});
