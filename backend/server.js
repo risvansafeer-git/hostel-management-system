@@ -400,3 +400,31 @@ app.delete("/rooms/:id", (req, res) => {
         });
 
 });
+app.put("/rooms/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        room_number,
+        capacity
+    } = req.body;
+
+    const sql =
+        "UPDATE rooms SET room_number=?, capacity=? WHERE id=?";
+
+    db.query(
+        sql,
+        [room_number, capacity, id],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Room updated"
+            });
+
+        });
+
+});
