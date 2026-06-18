@@ -350,3 +350,33 @@ app.delete("/students/:id", (req, res) => {
         });
 
 });
+app.put("/students/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        name,
+        department,
+        phone
+    } = req.body;
+
+    const sql =
+        "UPDATE students SET name=?, department=?, phone=? WHERE id=?";
+
+    db.query(
+        sql,
+        [name, department, phone, id],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:
+                    "Student updated"
+            });
+
+        });
+
+});
