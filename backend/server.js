@@ -428,3 +428,38 @@ app.put("/rooms/:id", (req, res) => {
         });
 
 });
+app.post("/student-login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    const sql =
+        "SELECT * FROM users WHERE username=? AND password=?";
+
+    db.query(
+        sql,
+        [username, password],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            if (result.length > 0) {
+
+                res.json({
+                    success: true,
+                    studentId:
+                        result[0].student_id
+                });
+
+            } else {
+
+                res.json({
+                    success: false
+                });
+
+            }
+
+        });
+
+});

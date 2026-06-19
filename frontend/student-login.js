@@ -16,7 +16,7 @@ async function login() {
 
     const response =
         await fetch(
-            "http://localhost:3000/login",
+            "http://localhost:3000/student-login",
             {
                 method: "POST",
                 headers: {
@@ -30,23 +30,26 @@ async function login() {
 
     const data =
         await response.json();
+if (data.success) {
 
-    if (data.success) {
+    localStorage.setItem(
+        "role",
+        "student"
+    );
 
-        localStorage.setItem(
-            "role",
-            "admin"
-        );
+    localStorage.setItem(
+        "studentId",
+        data.studentId
+    );
 
-        window.location.href =
-            "dashboard.html";
+    window.location.href =
+        "student-dashboard.html";
 
-    } else {
+} else {
 
-        alert(
-            "Invalid credentials"
-        );
+    alert(
+        "Invalid credentials"
+    );
 
-    }
-
+}
 }
