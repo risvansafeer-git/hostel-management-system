@@ -463,3 +463,49 @@ app.post("/student-login", (req, res) => {
         });
 
 });
+app.get("/allocations", (req, res) => {
+
+    const sql = `
+        SELECT
+            students.name,
+            rooms.room_number
+        FROM room_allocations
+        JOIN students
+        ON room_allocations.student_id = students.id
+        JOIN rooms
+        ON room_allocations.room_id = rooms.id
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+app.put("/leave/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const { status } = req.body;
+
+    db.query(
+        "UPDATE leave_requests SET status=? WHERE id=?",
+        [status, id],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Leave status updated"
+            });
+
+        });
+
+});
