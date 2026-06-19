@@ -20,3 +20,38 @@ async function addNotice() {
 
     loadNotices();
 }
+async function loadNotices() {
+
+    const response =
+        await fetch(
+            "http://localhost:3000/notices"
+        );
+
+    const notices =
+        await response.json();
+
+    const list =
+        document.getElementById(
+            "noticeList"
+        );
+
+    list.innerHTML = "";
+
+    notices.forEach(notice => {
+
+        list.innerHTML += `
+            <li>
+                <strong>
+                    ${notice.title}
+                </strong>
+
+                <br>
+
+                ${notice.description}
+            </li>
+        `;
+
+    });
+
+}
+loadNotices();

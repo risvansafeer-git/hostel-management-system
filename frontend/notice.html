@@ -22,7 +22,9 @@
 
     <a href="notice.html">Notices</a> |
 
-    <a href="login.html">Logout</a>
+    <button onclick="logout()">
+    Logout
+</button>
 
 </nav>
 
@@ -33,6 +35,7 @@
 <h1>Notice Board</h1>
 
 <input
+    class="admin-field"
     type="text"
     id="title"
     placeholder="Notice Title">
@@ -40,13 +43,14 @@
 <br><br>
 
 <textarea
+    class="admin-field"
     id="description"
     placeholder="Notice Description">
 </textarea>
 
 <br><br>
 
-<button onclick="addNotice()">
+<button class="admin-btn" onclick="addNotice()">
     Post Notice
 </button>
 
@@ -55,6 +59,7 @@
 <ul id="noticeList"></ul>
 
 <script src="notices.js"></script>
+<script src="role.js"></script>
 
 </body>
 </html>

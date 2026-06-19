@@ -22,7 +22,9 @@
 
     <a href="notice.html">Notices</a> |
 
-    <a href="login.html">Logout</a>
+    <button onclick="logout()">
+    Logout
+</button>
 
 </nav>
 
@@ -37,20 +39,22 @@
         id="roomId">
 
     <input
+        class="admin-field"
         type="text"
         id="room_number"
         placeholder="Room Number">
 
     <input
+        class="admin-field"
         type="number"
         id="capacity"
         placeholder="Capacity">
 
-    <button onclick="addRoom()">
+    <button class="admin-btn" onclick="addRoom()">
         Add Room
     </button>
 
-    <button onclick="updateRoom()">
+    <button class="admin-btn" onclick="updateRoom()">
         Update Room
     </button>
 
@@ -59,6 +63,7 @@
     <ul id="roomList"></ul>
 
     <script src="rooms.js"></script>
+    <script src="role.js"></script>
 
 </body>
 </html>

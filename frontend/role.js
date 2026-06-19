@@ -11,5 +11,12 @@ if (role === "student") {
                 "none";
 
         });
+    document
+        .querySelectorAll(".admin-field")
+        .forEach(field => {
+
+            field.style.display = "none";
+
+        });
 
 }

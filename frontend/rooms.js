@@ -28,7 +28,25 @@ async function addRoom() {
 
     loadRooms();
 }
+function hideAdminButtons() {
 
+    const role =
+        localStorage.getItem("role");
+
+    if (role === "student") {
+
+        document
+            .querySelectorAll(".admin-btn")
+            .forEach(btn => {
+
+                btn.style.display =
+                    "none";
+
+            });
+
+    }
+
+}
 async function loadRooms() {
 
     const response =
@@ -60,6 +78,7 @@ async function loadRooms() {
             ${room.capacity}
 
             <button
+                class="admin-btn"
                 onclick="
                 editRoom(
                     ${room.id},
@@ -72,6 +91,7 @@ async function loadRooms() {
             </button>
 
             <button
+                class="admin-btn"
                 onclick="
                 deleteRoom(
                     ${room.id}
@@ -85,6 +105,7 @@ async function loadRooms() {
     `;
 
 });
+hideAdminButtons();
 
 }
 

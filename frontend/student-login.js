@@ -43,7 +43,7 @@ if (data.success) {
     );
 
     window.location.href =
-        "student-dashboard.html";
+        "dashboard.html";
 
 } else {
 

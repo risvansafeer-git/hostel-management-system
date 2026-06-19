@@ -19,6 +19,25 @@ async function addStudent() {
 
     loadStudents();
 }
+function hideAdminButtons() {
+
+    const role =
+        localStorage.getItem("role");
+
+    if (role === "student") {
+
+        document
+            .querySelectorAll(".admin-btn")
+            .forEach(btn => {
+
+                btn.style.display =
+                    "none";
+
+            });
+
+    }
+
+}
 
 async function loadStudents() {
 
@@ -49,6 +68,7 @@ async function loadStudents() {
             ${student.department}
 
             <button
+                class="admin-btn"
                 onclick="
                 editStudent(
                     ${student.id},
@@ -62,6 +82,7 @@ async function loadStudents() {
             </button>
 
             <button
+                class="admin-btn"
                 onclick="
                 deleteStudent(
                     ${student.id}
@@ -75,6 +96,7 @@ async function loadStudents() {
     `;
 
 });
+hideAdminButtons();
 }
 
 loadStudents();

@@ -71,6 +71,24 @@ async function submitLeave() {
     loadLeaves();
 
 }
+function hideAdminButtons() {
+
+    const role =
+        localStorage.getItem("role");
+
+    if (role === "student") {
+
+        document
+            .querySelectorAll(".admin-btn")
+            .forEach(btn => {
+
+                btn.style.display = "none";
+
+            });
+
+    }
+
+}
 
 async function loadLeaves() {
 
@@ -92,23 +110,82 @@ async function loadLeaves() {
     leaves.forEach(leave => {
 
         list.innerHTML += `
-            <li>
-                From:
-                ${leave.from_date}
-                |
-                To:
-                ${leave.to_date}
-                |
-                Status:
-                ${leave.status}
-                <br>
-                ${leave.reason}
-            </li>
-        `;
+    <li>
+
+        From:
+        ${leave.from_date}
+
+        |
+
+        To:
+        ${leave.to_date}
+
+        <br>
+
+        Reason:
+        ${leave.reason}
+
+        <br>
+
+        Status:
+        ${leave.status}
+
+        <br>
+
+        <button
+            class="admin-btn"
+            onclick="
+            updateLeaveStatus(
+                ${leave.id},
+                'Approved'
+            )">
+
+            Approve
+
+        </button>
+
+        <button
+            class="admin-btn"
+            onclick="
+            updateLeaveStatus(
+                ${leave.id},
+                'Rejected'
+            )">
+
+            Reject
+
+        </button>
+
+    </li>
+`;
 
     });
+    hideAdminButtons();
 
 }
 
 loadStudents();
 loadLeaves();
+async function updateLeaveStatus(
+    id,
+    status
+) {
+
+    await fetch(
+        `http://localhost:3000/leave/${id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+            body:
+                JSON.stringify({
+                    status
+                })
+        }
+    );
+
+    loadLeaves();
+
+}

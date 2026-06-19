@@ -61,7 +61,24 @@ async function submitComplaint() {
     loadComplaints();
 
 }
+function hideAdminButtons() {
 
+    const role =
+        localStorage.getItem("role");
+
+    if (role === "student") {
+
+        document
+            .querySelectorAll(".admin-btn")
+            .forEach(btn => {
+
+                btn.style.display = "none";
+
+            });
+
+    }
+
+}
 async function loadComplaints() {
 
     const response =
@@ -91,7 +108,7 @@ async function loadComplaints() {
                 Status:
                 ${complaint.status}
                 <br>
-                <button onclick="resolveComplaint(${complaint.id})">
+                <button class="admin-btn" onclick="resolveComplaint(${complaint.id})">
                     Resolve
                 </button>
                 <br><br>
@@ -99,7 +116,7 @@ async function loadComplaints() {
         `;
 
     });
-
+hideAdminButtons();
 }
 
 loadStudents();
